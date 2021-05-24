@@ -1,3 +1,25 @@
+//MIT License
+//
+//Copyright (c) 2021 kiloson
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package pages
 
 import (
@@ -5,8 +27,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/closetool/mib-browser/pages/widget"
 	"github.com/gosnmp/gosnmp"
-	"github.com/kiloson/mib-browser/pages/widget"
 	"github.com/rivo/tview"
 )
 
@@ -40,9 +62,9 @@ func GetPage(app *tview.Application, port uint16, community string, ip string) *
 	return grid
 }
 
-func result2String(res *gosnmp.SnmpPacket) string {
+func result2String(res []gosnmp.SnmpPDU) string {
 	builder := strings.Builder{}
-	for _, variable := range res.Variables {
+	for _, variable := range res {
 		builder.WriteString(fmt.Sprintf("%v(%v) : ", variable.Name, variable.Type))
 		switch variable.Type {
 		case gosnmp.OctetString:
@@ -54,6 +76,7 @@ func result2String(res *gosnmp.SnmpPacket) string {
 			builder.WriteString(gosnmp.ToBigInt(variable.Value).String())
 			builder.Write([]byte{' '})
 		}
+		builder.Write([]byte{'\n'})
 	}
 	return builder.String()
 }
@@ -88,11 +111,21 @@ func sendAndDisplayFunc(ip, community string, port uint16, app *tview.Applicatio
 					})
 				} else {
 					app.QueueUpdateDraw(func() {
-						textView.SetText(result2String(res))
+						textView.SetText(result2String(res.Variables))
 					})
 				}
 			case widget.MethodGetNextRequest:
 				if res, err := g.GetNext([]string{oid}); err != nil {
+					app.QueueUpdateDraw(func() {
+						textView.SetText(err.Error())
+					})
+				} else {
+					app.QueueUpdateDraw(func() {
+						textView.SetText(result2String(res.Variables))
+					})
+				}
+			case widget.MethodWalkRequest:
+				if res, err := g.WalkAll(oid); err != nil {
 					app.QueueUpdateDraw(func() {
 						textView.SetText(err.Error())
 					})

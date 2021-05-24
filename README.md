@@ -2,6 +2,12 @@
 
 Mib-Browser is a tui mib-browser
 
+## Install
+
+```shell
+go get github.com/closetool/mib-browser
+```
+
 ## Usage
 
 ```

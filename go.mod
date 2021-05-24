@@ -1,4 +1,4 @@
-module github.com/kiloson/mib-browser
+module github.com/closetool/mib-browser
 
 go 1.16
 

@@ -1,3 +1,25 @@
+//MIT License
+//
+//Copyright (c) 2021 kiloson
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
 package widget
 
 import (
@@ -34,6 +56,10 @@ func init() {
 	setIf(root)
 	setAt(root)
 	setIp(root)
+	setIcmp(root)
+	setTcp(root)
+	setUdp(root)
+	setEgp(root)
 
 	node := tview.NewTreeNode(root.String()).SetReference(root.oid).SetColor(tcell.ColorGreen)
 	var addNodes func(*tview.TreeNode, *mibNode, string)
@@ -482,115 +508,362 @@ func setIp(root *mibNode) {
 }
 
 func setIcmp(root *mibNode) {
-	_ = &mibNode{
+	icmp := &mibNode{
 		name: "icmp",
 		oid:  "5",
 		children: []*mibNode{
 			{},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInMsgs",
+				oid:  "1",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInErrors",
+				oid:  "2",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInDestUnreachs",
+				oid:  "3",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icnmpInTimeExcds",
+				oid:  "4",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInPramProbe",
+				oid:  "5",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInSrcQuenchs",
+				oid:  "6",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInRedirects",
+				oid:  "7",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInEchos",
+				oid:  "8",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInEchoReps",
+				oid:  "9",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInTimestamps",
+				oid:  "10",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInTimestampReps",
+				oid:  "11",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInAddrMasks",
+				oid:  "12",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpInAddrMaskReps",
+				oid:  "13",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutMsgs",
+				oid:  "14",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutErrors",
+				oid:  "15",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutDestUnreachs",
+				oid:  "16",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutTimeExcds",
+				oid:  "17",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutParamProbe",
+				oid:  "18",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutSrcQuenchs",
+				oid:  "19",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutRedirects",
+				oid:  "20",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutEchos",
+				oid:  "21",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutEchoReps",
+				oid:  "22",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutTimestamps",
+				oid:  "23",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutTimestampReps",
+				oid:  "24",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutAddrMasks",
+				oid:  "25",
 			},
 			{
-				name: "",
-				oid:  "",
+				name: "icmpOutAddrMaskReps",
+				oid:  "26",
 			},
 		},
 	}
+	root.children = append(root.children, icmp)
+}
+
+func setTcp(root *mibNode) {
+	tcp := &mibNode{
+		oid:  "6",
+		name: "tcp",
+		children: []*mibNode{
+			{
+				name: "tcpRtoAlgorithm",
+				oid:  "1",
+			},
+			{
+				name: "tcpRtoMin",
+				oid:  "2",
+			},
+			{
+				name: "tcpRtoMax",
+				oid:  "3",
+			},
+			{
+				name: "tcpMaxConn",
+				oid:  "4",
+			},
+			{
+				name: "tcpActiveOpens",
+				oid:  "5",
+			},
+			{
+				name: "tcpPassiveOpens",
+				oid:  "6",
+			},
+			{
+				name: "tcpAttemptFails",
+				oid:  "7",
+			},
+			{
+				name: "tcpEstabResets",
+				oid:  "8",
+			},
+			{
+				name: "tcpCurrEstab",
+				oid:  "9",
+			},
+			{
+				name: "tcpInSegs",
+				oid:  "10",
+			},
+			{
+				name: "tcpOutSegs",
+				oid:  "11",
+			},
+			{
+				name: "tcpRetrsnsSegs",
+				oid:  "12",
+			},
+			{
+				name: "tcpConnTable",
+				oid:  "13",
+				children: []*mibNode{
+					{
+						name: "tcpConnEntry",
+						oid:  "1",
+						children: []*mibNode{
+							{
+								oid:  "1",
+								name: "tcpConnState",
+							},
+							{
+								oid:  "2",
+								name: "tcpConnLocalAddress",
+							},
+							{
+								oid:  "3",
+								name: "tcpConnLocalPort",
+							},
+							{
+								oid:  "4",
+								name: "tcpConnRemAddress",
+							},
+							{
+								oid:  "5",
+								name: "tcpConnRemPort",
+							},
+						},
+					},
+				},
+			},
+			{
+				name: "tcpInErrors",
+				oid:  "14",
+			},
+			{
+				name: "tcpOutRests",
+				oid:  "15",
+			},
+		},
+	}
+	root.children = append(root.children, tcp)
+}
+
+func setUdp(root *mibNode) {
+	udp := &mibNode{
+		name: "udp",
+		oid:  "7",
+		children: []*mibNode{
+			{
+				oid:  "1",
+				name: "udpInDatagrams",
+			},
+			{
+				oid:  "2",
+				name: "udpNoPorts",
+			},
+			{
+				oid:  "3",
+				name: "udpInErrors",
+			},
+			{
+				oid:  "4",
+				name: "udpOutDatagrams",
+			},
+			{
+				oid:  "5",
+				name: "udpTable",
+				children: []*mibNode{
+					{
+						name: "udpEntry",
+						oid:  "1",
+						children: []*mibNode{
+							{
+								oid:  "1",
+								name: "udpLocalAddress",
+							},
+							{
+								oid:  "2",
+								name: "udpLocalPort",
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	root.children = append(root.children, udp)
+}
+
+func setEgp(root *mibNode) {
+	egp := &mibNode{
+		name: "egp",
+		oid:  "8",
+		children: []*mibNode{
+			{
+				oid:  "1",
+				name: "egpInMegs",
+			},
+			{
+				oid:  "2",
+				name: "egpInErrors",
+			},
+			{
+				oid:  "3",
+				name: "egpOutMegs",
+			},
+			{
+				oid:  "4",
+				name: "egpOutErrors",
+			},
+			{
+				oid:  "5",
+				name: "egpNeighTable",
+				children: []*mibNode{
+					{
+						name: "egpNeighEntry",
+						oid:  "1",
+						children: []*mibNode{
+							{
+								oid:  "1",
+								name: "egpNeighState",
+							},
+							{
+								oid:  "2",
+								name: "egpNeighAddr",
+							},
+							{
+								oid:  "3",
+								name: "egpNeighAs",
+							},
+							{
+								oid:  "4",
+								name: "egpNeighMegs",
+							},
+							{
+								oid:  "5",
+								name: "egpNeighInErrs",
+							},
+							{
+								oid:  "6",
+								name: "egpNeighOutMegs",
+							},
+							{
+								oid:  "7",
+								name: "egpNeighOutErr",
+							},
+							{
+								oid:  "8",
+								name: "egpNeighInErrMegs",
+							},
+							{
+								oid:  "9",
+								name: "egpNeighOutErrMegs",
+							},
+							{
+								oid:  "10",
+								name: "egpNeighStateUps",
+							},
+							{
+								oid:  "11",
+								name: "egpNeighStateDowns",
+							},
+							{
+								oid:  "12",
+								name: "egpNeighIntervalHello",
+							},
+							{
+								oid:  "13",
+								name: "egpNeighIntervalPoll",
+							},
+							{
+								oid:  "14",
+								name: "egpNeighMode",
+							},
+							{
+								oid:  "15",
+								name: "egpNeighEventTrigger",
+							},
+						},
+					},
+				},
+			},
+			{
+				oid:  "6",
+				name: "egpAs",
+			},
+		},
+	}
+	root.children = append(root.children, egp)
 }
