@@ -627,6 +627,7 @@ func setTcp(root *mibNode) {
 		oid:  "6",
 		name: "tcp",
 		children: []*mibNode{
+			{},
 			{
 				name: "tcpRtoAlgorithm",
 				oid:  "1",
@@ -679,10 +680,12 @@ func setTcp(root *mibNode) {
 				name: "tcpConnTable",
 				oid:  "13",
 				children: []*mibNode{
+					{},
 					{
 						name: "tcpConnEntry",
 						oid:  "1",
 						children: []*mibNode{
+							{},
 							{
 								oid:  "1",
 								name: "tcpConnState",
@@ -725,6 +728,7 @@ func setUdp(root *mibNode) {
 		name: "udp",
 		oid:  "7",
 		children: []*mibNode{
+			{},
 			{
 				oid:  "1",
 				name: "udpInDatagrams",
@@ -745,10 +749,12 @@ func setUdp(root *mibNode) {
 				oid:  "5",
 				name: "udpTable",
 				children: []*mibNode{
+					{},
 					{
 						name: "udpEntry",
 						oid:  "1",
 						children: []*mibNode{
+							{},
 							{
 								oid:  "1",
 								name: "udpLocalAddress",
@@ -771,6 +777,7 @@ func setEgp(root *mibNode) {
 		name: "egp",
 		oid:  "8",
 		children: []*mibNode{
+			{},
 			{
 				oid:  "1",
 				name: "egpInMegs",
@@ -791,10 +798,12 @@ func setEgp(root *mibNode) {
 				oid:  "5",
 				name: "egpNeighTable",
 				children: []*mibNode{
+					{},
 					{
 						name: "egpNeighEntry",
 						oid:  "1",
 						children: []*mibNode{
+							{},
 							{
 								oid:  "1",
 								name: "egpNeighState",

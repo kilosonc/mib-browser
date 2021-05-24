@@ -37,19 +37,12 @@ func GetPage(app *tview.Application, port uint16, community string, ip string) *
 		children := node.GetChildren()
 		if len(children) != 0 {
 			node.SetExpanded(!node.IsExpanded())
-		} else {
-			widget.OidInput.SetText(node.GetReference().(string))
 		}
+		widget.OidInput.SetText(node.GetReference().(string))
 	})
 
 	textView := tview.NewTextView()
 
-	//btnSend := tview.NewButton("Send").SetSelectedFunc(sendAndDisplay(ip,community,port,app,textView))
-
-	//flex := tview.NewFlex().SetDirection(tview.FlexColumn).
-	//	AddItem(widget.OidInput, 0, 2, false).
-	//	AddItem(widget.DropDown, 0, 2, false).
-	//	AddItem(btnSend, 0, 2, false)
 	form := tview.NewForm().SetHorizontal(true).AddFormItem(widget.OidInput).AddFormItem(widget.DropDown).AddButton("Send", sendAndDisplayFunc(ip, community, port, app, textView))
 
 	grid := tview.NewGrid().
